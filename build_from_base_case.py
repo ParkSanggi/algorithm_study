@@ -1,9 +1,13 @@
 from copy import copy
 
+# 문자열의 모든 순열을 계산하는 알고리즘을 설계하라
+# 모든 문자는 문자열 내에서 고유하게 등장한다고 가정
+
 string = ['a', 'b', 'c', 'd']
 
 
 def find_permutation(_list):
+    # base case
     if len(_list) == 1:
         return [_list]
 
