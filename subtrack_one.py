@@ -46,3 +46,34 @@ def compare_strings(a, b):
         return False
 
     return True
+
+
+# 두가지 경우에서 중복되는 부분을 합쳐 한번에 계산하는 방식
+def one_edit_away(first, second):
+    # 길이 체크
+    if abs(len(first) - len(second)) > 1:
+        return False
+
+    # 길이가 다른 문자열 구분
+    if len(first) > len(second):
+        first, second = second, first
+
+    index_first = 0
+    index_second = 0
+
+    found_difference = False
+
+    while index_second < len(second) and index_first < len(first):
+        if first[index_first] != second[index_second]:
+            if found_difference:
+                return False
+            found_difference = True
+
+            if len(first) == len(second):
+                index_first += 1
+        else:
+            index_first += 1
+
+        index_second += 1
+
+    return True
