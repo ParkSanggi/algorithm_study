@@ -8,39 +8,39 @@ def compare_strings(a, b):
     length_a = len(a)
     length_b = len(b)
 
-    # imutable인 문자열을 수정할수도 있다는 생각에 리스트로 변환
-    # 메모리 문제, 변경 시 정렬문제 있음
-    list_a = list(a)
-    list_b = list(b)
-
     inconsistancy_count = 0
 
-    # 문자열의 길이가 같다면 다른 부분을 찾아서 같게 만들고 일치하는지 확인
+    # 두 문자열의 길이가 같을 경우 각 자리에 있는 문자를 비교하면서 수정횟수가 1을 초과하는지 확인
     if length_a == length_b:
         for i in range(length_a):
-            if list_a[i] == list_b[i]:
+            if a[i] == b[i]:
                 continue
             else:
-                list_b[i] = list_a[i]
-
-                if list_a != list_b:
+                inconsistancy_count += 1
+                if inconsistancy_count > 1:
                     return False
 
     # 문자열 길이의 차이가 1이라면 다른 부분을 찾아 고치거나, 삭제하고 같은지 확인
     elif abs(length_a - length_b) == 1:
-        for i in range(length_a - 1):
-            if list_a[i] == list_b[i]:
-                continue
+        index_a = 0
+        index_b = 0
+
+        # 짧은 문자열과 긴 문자열을 항상 같은 위치에서 비교할 수 있게 구분
+        if length_a > length_b:
+            a, b = b, a
+            length_a, length_b = length_b, length_a
+
+        while index_a < length_a and index_b < length_b:
+            # 각 문자가 같다면 둘 다 인덱스를 이동시킴
+            if a[index_a] == b[index_b]:
+                index_a += 1
+                index_b += 1
+            # 같지 않다면 불일치 카운터를 올리고 긴 문자열의 인덱스만 이동시킴
             else:
-                list_b.insert(i, list_a[i])
-                print(list_b)
-
-                if list_a != list_b:
+                inconsistancy_count += 1
+                if inconsistancy_count > 1:
                     return False
-
-        if length_a - length_b < 0:
-            if length_b[:-1] != length_a:
-                return False
+                index_b += 1
 
     else:
         return False
