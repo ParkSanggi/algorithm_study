@@ -22,6 +22,8 @@ class Stack:
         if pop_data == self.min_container[-1]:
             self.min_container.pop()
 
+        return pop_data
+
     def _min(self):
         if not self.min_container:
             return None
