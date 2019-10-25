@@ -20,11 +20,12 @@ def find_endpoint(memo, grid, path, start, end):
 
     memo[f'{start}'] = 0
 
-    path.pop()
+    if path:
+        path.pop()
 
 
 memo = {}
-grid = [[1, 1, 1, 1, None], [1, None, 1, 1, None], [1, 1, None, None, None], [None, 1, 1, 1, None],
+grid = [[1, 1, 1, 1, None], [1, None, 1, 1, None], [1, None, None, None, None], [None, 1, 1, 1, None],
         [None, None, None, None]]
 path = []
 start = time.time()
